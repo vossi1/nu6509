@@ -2,4 +2,4 @@
 *.a linguist-language=Assembly
 *.prg linguist-detectable=false
 tests/* linguist-detectable=false
-gerber/* liguist-detectable=false
+gerber/* linguist-detectable=false
