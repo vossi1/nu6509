@@ -3,7 +3,9 @@
 **Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations**
 
 **Copyright (c) 2023 Vossi - v.1**
+
 **[fixed, modified, no '816 support!]**
+
 **www.mos6509.com**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,10 +28,10 @@ SOFTWARE.
 
 **Nu6509.v: Routines to support mapping the 6509-specific bank functionality onto the 6502.**
 
-![NU6509 photo](https://github.com/vossi1/nu6509/blob/master/nu6509_vossi_v1_pcb.png)
-    
 **[Schematic](https://github.com/vossi1/nu6509/blob/master/Nu6509_vossi_v1.png)**
 
+![NU6509 photo](https://github.com/vossi1/nu6509/blob/master/nu6509_vossi_v1_pcb.png)
+    
 **fixed:**
 
 	databus read out always active if no WRITE (not only at PHI2=high, not dependent from RDY)
@@ -46,7 +48,6 @@ SOFTWARE.
 	solderpad is pre-connected for NMOS/CMOS 6502 -> cut for WDC W65C02S
 
 **Tested successful in cbm620 with:**
-
 Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript
 
 	mos6502A
@@ -57,11 +58,9 @@ Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript
 	CMD G65SC02-2
 	gte G65SC02-2
 	WDC W65C02S-8 (8MHz)
-
   (all cmos chips have TOD error in cbm burnin test???)
 
 **Tested successful in P500 with:**
-
 Tests: PacMan, Wizard of War, cbm RAM-Test (improved by Vossi), David Viner's Hires-Demo
 
 	mos6502A
