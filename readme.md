@@ -25,7 +25,7 @@ SOFTWARE.
 
 Nu6509.v: Routines to support mapping the 6509-specific bank functionality onto the 6502.
 
-![NU6509 photo](https://github.com/vossi1/nu6509/nu6509_vossi_v1.png)
+![NU6509 photo](https://github.com/vossi1/nu6509/nu6509_vossi_v1_pcb.png)
     
 fixed:
 	databus read out always active if no WRITE (not only at PHI2=high, not dependent from RDY)
