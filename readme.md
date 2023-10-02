@@ -57,7 +57,7 @@ Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript
 	CMD G65SC02-2
 	gte G65SC02-2
 	WDC W65C02S-8 (8MHz)
-  (all cmos chips have TOD error in cbm burnin test???)
+Note: (all cmos chips have TOD error in cbm burnin test???)
 
 **Tested successful in P500 with:**
 Tests: PacMan, Wizard of War, cbm RAM-Test (improved by Vossi), David Viner's Hires-Demo
