@@ -2,7 +2,8 @@
 
 **Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations**
 
-**Copyright (c) 2023 Vossi - v.1   [fixed, modified, no '816 support!]**
+**Copyright (c) 2023 Vossi - v.1**
+[fixed, modified, no '816 support!]
 
 **www.mos6509.com**
 
