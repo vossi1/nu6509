@@ -1,10 +1,10 @@
 # Nu6509 - Adapter to use 6502 in 6509-based system
 
-** Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations
+**Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations
 
-** Copyright (c) 2023 Vossi - v.1
-** [fixed, modified, no '816 support!]
-** www.mos6509.com
+Copyright (c) 2023 Vossi - v.1
+[fixed, modified, no '816 support!]
+www.mos6509.com**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,20 +24,20 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-** Nu6509.v: Routines to support mapping the 6509-specific bank functionality onto the 6502.
+**Nu6509.v: Routines to support mapping the 6509-specific bank functionality onto the 6502.**
 
 ![NU6509 photo](https://github.com/vossi1/nu6509/blob/master/nu6509_vossi_v1_pcb.png)
     
-* [Schematic](https://github.com/vossi1/nu6509/blob/master/Nu6509_vossi_v1.png)
+**[Schematic](https://github.com/vossi1/nu6509/blob/master/Nu6509_vossi_v1.png)**
 
-** fixed:
+**fixed:**
 
 	databus read out always active if no WRITE (not only at PHI2=high, not dependent from RDY)
 	databus not dependent from RDY (ready is ignored at writes, wdc allows halt in write cycles)
 	databus writes not dependent from AEC (original 6509 doesn't disable DB with AEC)
 	hardwired sync (important for timing in P500)
 
-** modified:
+**modified:**
 
 	removed 65816 support
 	added jtag connector
@@ -45,7 +45,7 @@ SOFTWARE.
 	hardwired so
 	solderpad is pre-connected for NMOS/CMOS 6502 -> cut for WDC W65C02S
 
-** Tested successful in cbm620 with:
+**Tested successful in cbm620 with:**
 
 	mos6502A
 	mos6502B (3MHz)
@@ -59,7 +59,7 @@ SOFTWARE.
 Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript
 	(all cmos chips have TOD error in cbm burnin test???)
 
-** Tested successful in P500 with:
+**Tested successful in P500 with:**
 
 	mos6502A
 	mos6502B (3MHz)
