@@ -1,10 +1,10 @@
 # Nu6509 - Adapter to use 6502 in 6509-based system
 
-**Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations
+**Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations**
 
-Copyright (c) 2023 Vossi - v.1
-[fixed, modified, no '816 support!]
-www.mos6509.com**
+**Copyright (c) 2023 Vossi - v.1**
+**[fixed, modified, no '816 support!]**
+**www.mos6509.com**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -47,6 +47,8 @@ SOFTWARE.
 
 **Tested successful in cbm620 with:**
 
+Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript
+
 	mos6502A
 	mos6502B (3MHz)
 	R6502AP
@@ -56,10 +58,11 @@ SOFTWARE.
 	gte G65SC02-2
 	WDC W65C02S-8 (8MHz)
 
-Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript
-	(all cmos chips have TOD error in cbm burnin test???)
+  (all cmos chips have TOD error in cbm burnin test???)
 
 **Tested successful in P500 with:**
+
+Tests: PacMan, Wizard of War, cbm RAM-Test (improved by Vossi), David Viner's Hires-Demo
 
 	mos6502A
 	mos6502B (3MHz)
@@ -71,5 +74,3 @@ Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript
 	CMD G65SC02-2
 	gte G65SC02-2
 	WDC W65C02S-8 (8MHz)
-
-Tests: PacMan, Wizard of War, cbm RAM-Test (improved by Vossi), David Viner's Hires-Demo 
