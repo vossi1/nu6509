@@ -2,7 +2,7 @@
 
 **Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations**
 
-**Copyright (c) 2023 Vossi - v.1 - [fixed, modified, no '816 support!]**
+**Copyright (c) 2023 Vossi - v.1   [fixed, modified, no '816 support!]**
 
 **www.mos6509.com**
 
@@ -30,14 +30,14 @@ SOFTWARE.
 
 ![NU6509 photo](https://github.com/vossi1/nu6509/blob/master/nu6509_vossi_v1_pcb.png)
     
-**fixed:**
+**Fixed:**
 
 	databus read out always active if no WRITE (not only at PHI2=high, not dependent from RDY)
 	databus not dependent from RDY (ready is ignored at writes, wdc allows halt in write cycles)
 	databus writes not dependent from AEC (original 6509 doesn't disable DB with AEC)
 	hardwired sync (important for timing in P500)
 
-**modified:**
+**Modified:**
 
 	removed 65816 support
 	added jtag connector
