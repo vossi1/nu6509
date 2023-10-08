@@ -53,14 +53,15 @@ Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript
 	mos6502B (3MHz)
 	R6502AP
 	UM6502A
-	UMC6502CE (4MHz, nmos)
+	UM6502CE (4MHz, nmos)
 	CMD G65SC02-2
 	gte G65SC02-2
-	WDC W65C02S-8 (8MHz)
-Note: (all cmos chips have TOD error in cbm burnin test???)
+	CMD G65SC02PE-4 (4MHz)
+	WDC W65C02S8PL-10 (10MHz)
+Note: (all cmos chips have TOD error in the cbm burnin test???)
 
 **Tested successful in P500 with:**
-Tests: PacMan, Wizard of War, cbm RAM-Test (improved by Vossi), David Viner's Hires-Demo
+Tests: pm500, wiz500, amind500 (all converted by vossi), cbm RAM-Test (finished & improved by Vossi), David Viner's Hires-Demo
 
 	mos6502A
 	mos6502B (3MHz)
@@ -68,7 +69,10 @@ Tests: PacMan, Wizard of War, cbm RAM-Test (improved by Vossi), David Viner's Hi
 	R6502AP
 	SY6502
 	UM6502A
-	UMC6502CE (4MHz)
+	UM6502CE (4MHz)
 	CMD G65SC02-2
 	gte G65SC02-2
-	WDC W65C02S-8 (8MHz)
+	CMD G65SC02PE-4 (4MHz)
+	R65C02-J4
+	WDC W65C02S8PL-10 (10MHz)
+Note: (amind 500 uses illegal opcodes and doesn't run on cmos CPU's)
