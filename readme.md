@@ -2,8 +2,7 @@
 
 **Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations**
 
-**Copyright (c) 2023 Vossi - v.1**
-[fixed, modified, no '816 support!]
+**Copyright (c) 2023 Vossi - v.1**   [fixed, modified, no '816 support!]
 
 **www.mos6509.com**
 
@@ -59,6 +58,8 @@ Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript
 	CMD G65SC02PE-4 (4MHz)
 	WDC W65C02S8PL-10 (10MHz)
 Note: (all cmos chips have TOD error in the cbm burnin test???)
+
+**:x: After building several adapters, I have noticed problems with IEEE transfer on some with certain CPU's. Possibly it is due to the CPLD's (from China). I am currently investigating this. There are no problems in the P500.**
 
 **Tested successful in P500 with:**
 Tests: pm500, wiz500, amind500 (all converted by vossi), cbm RAM-Test (finished & improved by Vossi), David Viner's Hires-Demo
