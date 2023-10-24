@@ -45,15 +45,19 @@ SOFTWARE.
 	hardwired so
 	solderpad is pre-connected for NMOS/CMOS 6502 -> cut for WDC W65C02S
 
+**:x: BEWARE: There are many XC9572XL FAKES out there **
+
 **Tested successful in cbm620 with:**
 Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript, Monitor D.Viner, Supermon
 
 Runs with all software above prefectly:
+
 	mos6502A
 	R6502AP
 	UM6502A up to 86 datcode
 
 Doesn't work 100% or fails total:
+
 	mos6502B (3MHz)
 	UM6502A from 88 datecode
 	UM6502CE (4MHz, nmos)
@@ -64,8 +68,6 @@ Doesn't work 100% or fails total:
 	WDC W65C02S8PL-10 (10MHz)
 
 Note: (all cmos chips have TOD error in the cbm burnin test???)
-
-**:x: BEWARE: There are many XC9572XL FAKES out there **
 
 **Tested successful in P500 with:**
 Tests: pm500, wiz500, amind500 (all converted by vossi), cbm RAM-Test (finished & improved by Vossi), David Viner's Hires-Demo
