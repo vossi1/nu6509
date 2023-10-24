@@ -30,8 +30,6 @@ SOFTWARE.
 
 ![NU6509 photo](https://github.com/vossi1/nu6509/blob/master/nu6509_vossi_v1_pcb.png)
 
-**BEWARE: There are many XC9572 FAKES out there**
-    
 **Fixed:**
 
 	databus read out always active if no WRITE (not only at PHI2=high, not dependent from RDY)
@@ -50,13 +48,14 @@ SOFTWARE.
 **Tested successful in cbm620 with:**
 Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript, Monitor D.Viner, Supermon
 
-Runs with software all above prefectly:
+Runs with all software above prefectly:
 	mos6502A
 	R6502AP
+	UM6502A up to 86 datcode
 
 Doesn't work 100% or fails total:
 	mos6502B (3MHz)
-	UM6502A
+	UM6502A from 88 datecode
 	UM6502CE (4MHz, nmos)
 	CMD G65SC02-2
 	gte G65SC02-2
@@ -66,7 +65,7 @@ Doesn't work 100% or fails total:
 
 Note: (all cmos chips have TOD error in the cbm burnin test???)
 
-**:x: After building several adapters, I have noticed problems with IEEE transfer on some with certain CPU's. Possibly it is due to the CPLD's (China). I am currently investigating this. There are no problems in the P500.**
+**:x: BEWARE: There are many XC9572XL FAKES out there **
 
 **Tested successful in P500 with:**
 Tests: pm500, wiz500, amind500 (all converted by vossi), cbm RAM-Test (finished & improved by Vossi), David Viner's Hires-Demo
