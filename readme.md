@@ -45,7 +45,7 @@ SOFTWARE.
 	hardwired so
 	solderpad is pre-connected for NMOS/CMOS 6502 -> cut for WDC W65C02S
 
-**:x: BEWARE: There are many XC9572XL FAKES out there **
+:x: **BEWARE: There are many XC9572XL FAKES out there **
 
 **Tested successful in cbm620 with:**
 Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript, Monitor D.Viner, Supermon
