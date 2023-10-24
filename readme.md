@@ -47,9 +47,7 @@ SOFTWARE.
 
 :x: **BEWARE: There are many XC9572XL FAKES out there**
 
-**Tested successful in cbm620 with:**
-
-Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript, Monitor D.Viner, Supermon
+**Tested successful in cbm620 with:** Diagnostic, Burnin-Test, Testsuite, Superscript, Monitor D.Viner, Supermon
 
 Runs with all software above perfectly:
 
