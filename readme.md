@@ -29,6 +29,8 @@ SOFTWARE.
 **[Schematic](https://github.com/vossi1/nu6509/blob/master/Nu6509_vossi_v1.png)**
 
 ![NU6509 photo](https://github.com/vossi1/nu6509/blob/master/nu6509_vossi_v1_pcb.png)
+
+**BEWARE: There are many XC9572 FAKES out there**
     
 **Fixed:**
 
@@ -46,17 +48,22 @@ SOFTWARE.
 	solderpad is pre-connected for NMOS/CMOS 6502 -> cut for WDC W65C02S
 
 **Tested successful in cbm620 with:**
-Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript
+Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript, Monitor D.Viner, Supermon
 
+Runs with software all above prefectly:
 	mos6502A
-	mos6502B (3MHz)
 	R6502AP
+
+Doesn't work 100% or fails total:
+	mos6502B (3MHz)
 	UM6502A
 	UM6502CE (4MHz, nmos)
 	CMD G65SC02-2
 	gte G65SC02-2
 	CMD G65SC02PE-4 (4MHz)
+	R65C02-J4
 	WDC W65C02S8PL-10 (10MHz)
+
 Note: (all cmos chips have TOD error in the cbm burnin test???)
 
 **:x: After building several adapters, I have noticed problems with IEEE transfer on some with certain CPU's. Possibly it is due to the CPLD's (China). I am currently investigating this. There are no problems in the P500.**
