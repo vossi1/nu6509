@@ -68,8 +68,7 @@ Doesn't run 100% or fails total:
 
 Note: (all cmos chips have TOD error in the cbm burnin test???)
 
-**Tested successful in P500 with:**
-Tests: pm500, wiz500, amind500 (all converted by vossi), cbm RAM-Test (finished & improved by Vossi), David Viner's Hires-Demo
+**Tested successful in P500 with:** pm500, wiz500, amind500 (all converted by vossi), cbm RAM-Test (finished & improved by Vossi), David Viner's Hires-Demo
 
 	mos6502
 	mos6502A
