@@ -50,13 +50,13 @@ SOFTWARE.
 **Tested successful in cbm620 with:**
 Tests: Diagnostic-Cart, Burnin-Test, Michal's Testsuite, Superscript, Monitor D.Viner, Supermon
 
-Runs with all software above prefectly:
+Runs with all software above perfectly:
 
 	mos6502A
 	R6502AP
 	UM6502A up to 86 datcode
 
-Doesn't work 100% or fails total:
+Doesn't run 100% or fails total:
 
 	mos6502B (3MHz)
 	UM6502A from 88 datecode
