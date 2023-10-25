@@ -55,7 +55,8 @@ Runs with all software above perfectly:
 	R6502AP
 	UM6502A up to 86 datcode
 	gte G65SC02P-2 up to 86 datecode
-	:arrow_forward: R6512AP runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
+	
+	R6512AP runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
 
 Doesn't run 100% or fails total:
 
