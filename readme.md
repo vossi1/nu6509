@@ -57,6 +57,7 @@ Runs with all software above perfectly:
 	gte G65SC02P-2 up to 86 datecode
 	
 	R6512AP runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
+	GTEµ G65SC02P-2 runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
 
 Doesn't run 100% or fails total:
 
@@ -87,4 +88,8 @@ Note: (all cmos chips have TOD error in the cbm burnin test???)
 	CMD G65SC02PE-4 (4MHz)
 	R65C02-J4
 	WDC W65C02S8PL-10 (10MHz)
+
+	R6512AP runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
+	GTEµ G65SC02P-2 runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
+
 Note: (amind 500 uses illegal opcodes and doesn't run on cmos CPU's)
