@@ -54,6 +54,7 @@ Runs with all software above perfectly:
 	mos6502A
 	R6502AP
 	UM6502A up to 86 datcode
+	gte G65SC02-2
 
 Doesn't run 100% or fails total:
 
@@ -61,7 +62,6 @@ Doesn't run 100% or fails total:
 	UM6502A from 88 datecode
 	UM6502CE (4MHz, nmos)
 	CMD G65SC02-2
-	gte G65SC02-2
 	CMD G65SC02PE-4 (4MHz)
 	R65C02-J4
 	WDC W65C02S8PL-10 (10MHz)
