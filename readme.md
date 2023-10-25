@@ -52,12 +52,13 @@ SOFTWARE.
 Runs with all software above perfectly:
 
 	mos6502A
+	mos6502AD
 	R6502AP
 	UM6502A up to 86 datcode
 	gte G65SC02P-2 up to 86 datecode
 	
 	R6512AP runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
-	GTEµ G65SC02P-2 runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
+	GTEµ G65SC12P-2 runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
 
 Doesn't run 100% or fails total:
 
@@ -74,6 +75,7 @@ Note: (all cmos chips have TOD error in the cbm burnin test???)
 **Tested successful in P500 with:** pm500, wiz500, amind500 (all converted by vossi), cbm RAM-Test (finished & improved by Vossi), David Viner's Hires-Demo
 
 	mos6502
+	mos6502AD
 	mos6502A
 	mos6502B (3MHz)
 	R6502
@@ -90,6 +92,6 @@ Note: (all cmos chips have TOD error in the cbm burnin test???)
 	WDC W65C02S8PL-10 (10MHz)
 
 	R6512AP runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
-	GTEµ G65SC02P-2 runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
+	GTEµ G65SC12P-2 runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
 
 Note: (amind 500 uses illegal opcodes and doesn't run on cmos CPU's)
