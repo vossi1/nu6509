@@ -45,9 +45,9 @@ SOFTWARE.
 	only 0805 parts
 	hardwired _SO
 	solderpad is pre-connected for NMOS/CMOS 6502 -> cut for WDC W65C02S
-	added 6512 support with solderpad for PH1 in from 6509 socket
+	added 6512 support with solderpad for PHI1 in from 6509 socket
 
-:x: **BEWARE:  XC9572XL from China are mostly FAKES - many of them work - but you don't know what you get! **
+:x: **BEWARE: XC9572 from China are mostly FAKES - many of them work - but you don't know what you get! **
 
 Note: In low profile machines there is not enough space in the height to insert the adapter with socket. There is even less space in devices with a bottom-mounted power supply unit. The only solution is to first test the NU6509 in an open device and then solder it directly into the board.
 
