@@ -2,7 +2,7 @@
 
 **Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations**
 
-**Copyright (c) 2023 Vossi - v.1** [fixed, modified, no '816 support!]
+**Copyright (c) 2023 Vossi - v.2** [fixed, modified, 6512 support, no '816 support]
 
 **www.mos6509.com**
 
@@ -26,53 +26,55 @@ SOFTWARE.
 
 **Nu6509.v: Routines to support mapping the 6509-specific bank functionality onto the 6502.**
 
-**[Schematic](https://github.com/vossi1/nu6509/blob/master/Nu6509_vossi_v1.png)**
+**[Schematic](https://github.com/vossi1/nu6509/blob/master/schematics_v2.png)**
 
-![NU6509 photo](https://github.com/vossi1/nu6509/blob/master/nu6509_vossi_v1_pcb.png)
+![NU6509 pcb_front](https://github.com/vossi1/nu6509/blob/master/pcb_v2_1.png)
+![NU6509 pcb_back](https://github.com/vossi1/nu6509/blob/master/pcb_v2_2.png)
 
 **Fixed:**
 
-	databus read out always active if no WRITE (not only at PHI2=high, not dependent from RDY)
 	databus not dependent from RDY (ready is ignored at writes, wdc allows halt in write cycles)
 	databus writes not dependent from AEC (original 6509 doesn't disable DB with AEC)
-	hardwired sync (important for timing in P500)
+	databus read and write with 30ns hold time after PHI2 falling edge
+	hardwired SYNC (important for timing in P500)
 
 **Modified:**
 
 	removed 65816 support
 	added jtag connector
 	only 0805 parts
-	hardwired so
+	hardwired _SO
 	solderpad is pre-connected for NMOS/CMOS 6502 -> cut for WDC W65C02S
+	added 6512 support with solderpad for PH1 in from 6509 socket
 
-:x: **BEWARE: There are many XC9572XL FAKES out there**
+:x: **BEWARE:  XC9572XL from China are mostly FAKES - many of them work - but you don't know what you get! **
 
-**Tested successful in cbm620 with:** Diagnostic, Burnin-Test, Testsuite, Superscript, Monitor D.Viner, Supermon
+Note: In low profile machines there is not enough space in the height to insert the adapter with socket. There is even less space in devices with a bottom-mounted power supply unit. The only solution is to first test the NU6509 in an open device and then solder it directly into the board.
 
-Runs with all software above perfectly:
+**Tested successful in cbm2 with:** Diagnostic, Burnin-Test, Testsuite, Superscript, Monitor D.Viner, Supermon, Diskview
+
+Test-boards: 610 Rev.E, 620 Rev.F, 710 Rev.B, 710 Rev.C, 720 Rev. B
 
 	mos6502A
 	mos6502AD
-	R6502AP
-	UM6502A up to 86 datcode
-	gte G65SC02P-2 up to 86 datecode
-	
-	R6512AP runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
-	GTEµ G65SC12P-2 runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
-
-Doesn't run 100% or fails total:
-
 	mos6502B (3MHz)
-	UM6502A from 88 datecode
+	R6502AP
+	UM6502A
+	UM6502B (3MHz, nmos)
 	UM6502CE (4MHz, nmos)
-	CMD G65SC02PI-2
-	CMD G65SC02PE-4 (4MHz)
-	R65C02-J4
-	WDC W65C02S8PL-10 (10MHz)
+	R65C02P2 (cmos)
+	R65C02-J4 (4MHz, cmos, in PLCC Adapter)
+	gteµ G65SC02P-2 (cmos)
+	CMD G65SC02PI-2 (cmos)
+	CMD G65SC02PE-4 (4MHz, cmos, in PLCC Adapter)
+	WDC W65C02S8PL-10 (10MHz, cmos, in PLCC Adapter)
 
-Note: (all cmos chips have TOD error in the cbm burnin test???)
+	R6512AP (with Solderpad 6512 for PHI1 - needs the two-phase clock!)
+	GTEµ G65SC12P-2 (2MHz, cmos) (with Solderpad 6512 for PHI1 - needs the two-phase clock!)
 
-**Tested successful in P500 with:** pm500, wiz500, amind500 (all converted by vossi), cbm RAM-Test (finished & improved by Vossi), David Viner's Hires-Demo
+Note cmos: (all cmos chips have TOD error in the cbm2 burnin test - localized at indirect read from CIA registers - so they are probably unusable?)
+
+**Tested successful in P500 EU with:** pm500, wiz500, amind500 (all converted by vossi), P500-Test (finished & improved by Vossi), David Viner's Hires-Demo
 
 	mos6502
 	mos6502AD
@@ -83,15 +85,17 @@ Note: (all cmos chips have TOD error in the cbm burnin test???)
 	SY6502
 	UM6502
 	UM6502A
-	UM6502B (3MHz)
-	UM6502CE (4MHz)
-	CMD G65SC02-2
-	gte G65SC02-2
-	CMD G65SC02PE-4 (4MHz)
-	R65C02-J4
-	WDC W65C02S8PL-10 (10MHz)
+	UM6502B (3MHz, nmos)
+	UM6502CE (4MHz, nmos)
+	R65C02P2 (cmos)
+	R65C02-J4 (4MHz, cmos, in PLCC Adapter)
+	gteµ G65SC02P-2 (cmos)
+	CMD G65SC02PI-2 (cmos)
+	CMD G65SC02PE-4 (4MHz, cmos, in PLCC Adapter)
+	WDC W65C02S8PL-10 (10MHz, cmos, in PLCC Adapter)
 
-	R6512AP runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
-	GTEµ G65SC12P-2 runs with a wire from socket 40 to IC pin 3 (needs the two-phase clock!)
+	R6512AP (with Solderpad 6512 for PHI1 - needs the two-phase clock!)
+	GTEµ G65SC12P-2 (with Solderpad 6512 for PHI1 - needs the two-phase clock!)
 
-Note: (amind 500 uses illegal opcodes and doesn't run on cmos CPU's)
+Note cmos: (amind 500 uses illegal opcodes and doesn't run on cmos CPU's)
+Note cmos: (all cmos chips have also TOD error in my new P500-test v. 1.4 - so they are probably unusable?)

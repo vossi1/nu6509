@@ -2,8 +2,8 @@
    Nu6509 - Adapter to use 6502 in 6509-based system
    Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations
 	
-	Copyright (c) 2023 Vossi - v.1
-	[fixed, modified, no '816 support!]
+	Copyright (c) 2023 Vossi - v.2
+	[fixed, modified, 6512 support, no '816 support]
 	www.mos6509.com
 	
    Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,21 +28,18 @@
    functionality onto the 6502.
     
 	fixed:
-		databus read out always active if no WRITE (not only at PHI2=high, not dependent from RDY)
 		databus not dependent from RDY (ready is ignored at writes, wdc allows halt in write cycles)
 		databus writes not dependent from AEC (original 6509 doesn't disable DB with AEC)
-		hardwired sync (important for timing in P500)
+		databus read and write with 30ns hold time after PHI2 falling edge
+		hardwired SYNC (important for timing in P500)
 	modified:
 		removed 65816 support
 		added jtag connector
 		only 0805 parts
-		hardwired _so
+		hardwired _SO
 		solderpad is pre-connected for NMOS/CMOS 6502 -> cut for WDC W65C02S
+		added 6512 support with solderpad for PH1 in from 6509 socket
 */
-
-// 816 part removed and modified by vossi 2023
-// sync needs a wire from 6509 socket pin 3 to 6502 pin 7
-// _so needs a wire from 6509 28 to 6502 38
 
 module Nu6509(input _reset,
               input phi2_6509,
@@ -58,6 +55,12 @@ module Nu6509(input _reset,
 
 reg [7:0]data_6502_out;
 reg [7:0]data_6509_out;
+wire delay1;
+wire delay2;
+wire delay3;
+wire delay4;
+wire delay5;
+wire delay6;
 wire [3:0]data_0000;
 wire [3:0]data_0001;
 wire [3:0]data_bank;
@@ -66,7 +69,8 @@ wire data_cycle1;
 wire data_cycle2;
 wire data_cycle3;
 wire data_cycle4;
-wire data_cycle5;wire sel_bank;
+wire data_cycle5;
+wire sel_bank;
 wire ce_bank;
 wire we_bank;
 
@@ -75,7 +79,8 @@ wire we_bank;
 */
 
 assign ce_bank =                          address_6502[15:1] == 0;
-assign we_bank =                          ce_bank & !r_w;
+assign we_bank =                          ce_bank & !r_w;
+
 assign data_6509 =                        data_6509_out;
 assign data_6502 =                        data_6502_out;
 
@@ -93,28 +98,40 @@ register #(.WIDTH(1))                     reg_clock3(phi2_6509, !_reset, rdy, da
 // shift
 register #(.WIDTH(1))                     reg_clock4(phi2_6509, !_reset, rdy, data_cycle3, data_cycle4);
 // shift
-register #(.WIDTH(1))                     reg_clock5(phi2_6509, !_reset, rdy, data_cycle4, data_cycle5);// bank selection
-assign sel_bank =                         (data_cycle5 & !sync) | data_cycle4;
+register #(.WIDTH(1))                     reg_clock5(phi2_6509, !_reset, rdy, data_cycle4, data_cycle5);
+
+// bank selection
+assign sel_bank =                         (data_cycle5 & !sync) | data_cycle4;
+
 assign address_bank =                     ( sel_bank ? data_0001 : data_0000);
+
 // read bank registers in any bank.
 assign data_bank = (address_6502[0] ? data_0001 : data_0000);
 
+// phi2 delay for databus hold time ( about 30ns - each inverter needs 5ns )
+(*S = "TRUE"*) inverter inv1(phi2_6509, delay1);
+(*S = "TRUE"*) inverter inv2(delay1, delay2);
+(*S = "TRUE"*) inverter inv3(delay2, delay3);
+(*S = "TRUE"*) inverter inv4(delay3, delay4);
+(*S = "TRUE"*) inverter inv5(delay4, delay5);
+(*S = "TRUE"*) inverter inv6(delay5, delay6);
+
 always @(*)
 begin							 // & rdy is not nessasary at read
-   if(r_w & ce_bank)
-      data_6502_out = {4'b0000, data_bank};	// read bank reg
-   else if(r_w & !ce_bank)
-      data_6502_out = data_6509;					// read data
+   if(r_w & ce_bank & (phi2_6509 | delay6)) 			// read with 30ns hold time after phi2 falling edge
+      data_6502_out = {4'b0000, data_bank};			// read bank reg
+   else if(r_w & !ce_bank & (phi2_6509 | delay6)) 	// read with 30ns hold time after phi2 falling edge
+      data_6502_out = data_6509;							// read data
    else
-      data_6502_out = 8'bz; 						// no read -> write
+      data_6502_out = 8'bz; 								// no read -> write
 end
 
 always @(*)
-begin							// no & AEC here - original 6509 doesn't disable DB with AEC
+begin							// no & aec here - original 6509 doesn't disable DB with AEC
 								// no & rdy here - ready is ignored at writes, wdc allows halt in write cycles
-   if(!r_w & phi2_6509) 
-		data_6509_out = data_6502;					// write only at phi2=high
+   if(!r_w & (phi2_6509 | delay6)) 						// write with 30ns hold time after phi2 falling edge
+		data_6509_out = data_6502;							// write only at phi2=high
    else
-      data_6509_out = 8'bz;						// no write
+      data_6509_out = 8'bz;								// no write
 end
 endmodule
