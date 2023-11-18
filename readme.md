@@ -27,9 +27,7 @@ SOFTWARE.
 **Nu6509.v: Routines to support mapping the 6509-specific bank functionality onto the 6502.**
 
 **[Schematic](https://github.com/vossi1/nu6509/blob/master/schematics_v2.png)**
-
-![NU6509 pcb_front](https://github.com/vossi1/nu6509/blob/master/pcb_v2_1.png)
-![NU6509 pcb_back](https://github.com/vossi1/nu6509/blob/master/pcb_v2_2.png)
+![NU6509 real_v2](https://github.com/vossi1/nu6509/blob/master/nu6509v2.jpg)
 
 **Fixed:**
 
@@ -47,7 +45,8 @@ SOFTWARE.
 	solderpad is pre-connected for NMOS/CMOS 6502 -> cut for WDC W65C02S
 	added 6512 support with solderpad for PHI1 in from 6509 socket
 
-![NU6509 real_v2](https://github.com/vossi1/nu6509/blob/master/nu6509v2.jpg)
+![NU6509 pcb_front](https://github.com/vossi1/nu6509/blob/master/pcb_v2_1.png)
+![NU6509 pcb_back](https://github.com/vossi1/nu6509/blob/master/pcb_v2_2.png)
 
 :x: **BEWARE: XC9572 from China are mostly FAKES - many of them work - but you don't know what you get! **
 
