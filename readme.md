@@ -47,6 +47,8 @@ SOFTWARE.
 	solderpad is pre-connected for NMOS/CMOS 6502 -> cut for WDC W65C02S
 	added 6512 support with solderpad for PHI1 in from 6509 socket
 
+![NU6509 real_v2](https://github.com/vossi1/nu6509/blob/master/nu6509v2.jpg)
+
 :x: **BEWARE: XC9572 from China are mostly FAKES - many of them work - but you don't know what you get! **
 
 Note: In low profile machines there is not enough space in the height to insert the adapter with socket. There is even less space in devices with a bottom-mounted power supply unit. The only solution is to first test the NU6509 in an open device and then solder it directly into the board.
