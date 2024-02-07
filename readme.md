@@ -32,7 +32,6 @@ SOFTWARE.
 **Fixed:**
 
 	databus not dependent from RDY (ready is ignored at writes, wdc allows halt in write cycles)
-	databus writes not dependent from AEC (original 6509 doesn't disable DB with AEC)
 	databus read and write with 30ns hold time after PHI2 falling edge
 	hardwired SYNC (important for timing in P500)
 
@@ -50,7 +49,10 @@ SOFTWARE.
 
 :x: **BEWARE: XC9572 from China are mostly FAKES - many of them work - but you don't know what you get! **
 
-Note: In low profile machines there is not enough space in the height to insert the adapter with socket. There is even less space in devices with a bottom-mounted power supply unit. The only solution is to first test the NU6509 in an open device and then solder it directly into the board.
+Notes:
+In low profile machines there is not enough space in the height to insert the adapter with socket. There is even less space in devices with a bottom-mounted power supply unit. The only solution is to first test the NU6509 in an open device and then solder it directly into the board.
+The NU6509 does not support AEC! No known CBMII-machine uses it - AEC is always pulled up on all CBMII-boards.
+If you encounter problems with a specific 6502 CPU, try another one - best choice is mostly an old mos 6502A.
 
 **Tested successful in cbm2 with:** Diagnostic, Burnin-Test, Testsuite, Superscript, Monitor D.Viner, Supermon, Diskview
 
