@@ -29,7 +29,6 @@
     
 	fixed:
 		databus not dependent from RDY (ready is ignored at writes, wdc allows halt in write cycles)
-		databus writes not dependent from AEC (original 6509 doesn't disable DB with AEC)
 		databus read and write with 30ns hold time after PHI2 falling edge
 		hardwired SYNC (important for timing in P500)
 	modified:
@@ -39,6 +38,8 @@
 		hardwired _SO
 		solderpad is pre-connected for NMOS/CMOS 6502 -> cut for WDC W65C02S
 		added 6512 support with solderpad for PH1 in from 6509 socket
+		
+The NU6509 does not support AEC! No known CBMII-machine uses it - AEC is always pulled up on all CBMII-boards.
 */
 
 module Nu6509(input _reset,
