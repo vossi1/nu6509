@@ -49,7 +49,7 @@ module Nu6509(input _reset,
               inout [7:0]data_6502,
               inout [7:0]data_6509,
               input rdy,
-              input aec, // hardwired to WDC BE pin 36 - disables AB, DB, _RW (original 6509 AEC disables only AB)
+              input aec, // hardwired to WDC BE pin 36 - disables AB, DB, R_W
               input sync,
               output [3:0]address_bank
              );
@@ -128,7 +128,7 @@ begin							 // & rdy is not nessasary at read
 end
 
 always @(*)
-begin							// no & aec here - original 6509 doesn't disable DB with AEC
+begin
 								// no & rdy here - ready is ignored at writes, wdc allows halt in write cycles
    if(!r_w & (phi2_6509 | delay6)) 						// write with 30ns hold time after phi2 falling edge
 		data_6509_out = data_6502;							// write only at phi2=high
