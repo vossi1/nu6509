@@ -1,23 +1,7 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    23:52:36 12/08/2013 
-// Design Name: 
-// Module Name:    register 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
-//
-//////////////////////////////////////////////////////////////////////////////////
+// Register module with variable size
+// Copyright (c) 2024 Vossi, www.mos6509.com, part of NU6509
+
 `ifndef _register
 `define _register
 module register(clock, reset, enable, d, q);
@@ -29,16 +13,15 @@ input clock;
 input reset;
 input enable;
 input [WIDTH-1:0] d;
-output [WIDTH-1:0] q;
-reg [WIDTH-1:0] q;
+output reg [WIDTH-1:0] q;
 initial q = RESET;
 
-always @ (negedge clock, posedge reset)
-  begin
-  if(reset)
+always @(negedge clock, posedge reset)
+begin
+	if(reset)
 		q <= RESET;
-  else if(enable)
-	   q <= d;
-  end
+	else if(enable)
+		q <= d;
+end
 endmodule
 `endif

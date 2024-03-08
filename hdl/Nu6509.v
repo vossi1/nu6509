@@ -2,7 +2,7 @@
    Nu6509 - Adapter to use 6502 in 6509-based system
    Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations
 	
-	Copyright (c) 2023 Vossi - v.2
+	Copyright (c) 2024 Vossi - v.2a
 	[fixed, modified, 6512 support, no '816 support]
 	www.mos6509.com
 	
@@ -24,6 +24,9 @@
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 
+   This Verilog attempts to implement the circuit by Dr. Jefyll in this post:
+   http://forum.6502.org/viewtopic.php?p=17597&sid=0966e1fa047d491a969a4693b5fed5fd#p17597
+
    Nu6509.v: Routines to support mapping the 6509-specific bank
    functionality onto the 6502.
     
@@ -41,98 +44,95 @@
 		
 The NU6509 does not support AEC! No known CBMII-machine uses it - AEC is always pulled up on all CBMII-boards.
 */
+module Nu6509(	input [15:0]address_6502,
+				inout [7:0]data_6502,
+				inout [7:0]data_6509,
+				output [3:0]address_bank,
+				input r_w, input phi2, input sync, input rdy, input _reset
+				); // input AEC not used - hardwired to WDC BE pin 36 - disables AB, DB, R_W
 
-module Nu6509(input _reset,
-              input phi2_6509,
-              input r_w,
-              input [15:0]address_6502,
-              inout [7:0]data_6502,
-              inout [7:0]data_6509,
-              input rdy,
-              input aec, // hardwired to WDC BE pin 36 - disables AB, DB, R_W
-              input sync,
-              output [3:0]address_bank
-             );
-
+reg [7:0]data_out;
 reg [7:0]data_6502_out;
-reg [7:0]data_6509_out;
-wire delay1;
-wire delay2;
-wire delay3;
-wire delay4;
-wire delay5;
-wire delay6;
+wire delay1, delay2, delay3, delay4, delay5, delay6;	// holdtime delay wires
 wire [3:0]data_0000;
 wire [3:0]data_0001;
-wire [3:0]data_bank;
-wire flag_opcode;
-wire data_cycle1;
-wire data_cycle2;
-wire data_cycle3;
-wire data_cycle4;
-wire data_cycle5;
-wire sel_bank;
-wire ce_bank;
-wire we_bank;
+reg mmu_opcode, adr_bit0_old;
+wire next_cycle, cycle2, cycle3, cycle4;	// cycle wires
+reg io_select_latched, write1, mmu_shift, mmu0;
+wire io_select, oe_data_in, oe_io_data, oe_d;
+wire rd_0x00, rd_0x01, wr_0x00, wr_0x01;
+wire phi1, phi2_th;
 
-/* This Verilog attempts to implement the circuit by Dr. Jefyll in this post:
-   http://forum.6502.org/viewtopic.php?p=17597&sid=0966e1fa047d491a969a4693b5fed5fd#p17597
-*/
+assign phi1 = !phi2;
+assign data_6502 =	data_6502_out;			// data read output to 6502
+assign data_6509 =	data_out;				// data write output to board
 
-assign ce_bank =                          address_6502[15:1] == 0;
-assign we_bank =                          ce_bank & !r_w;
+always @(negedge phi1)			// latch signals at phi1 falling edge
+begin
+	write1 <= !r_w;						// latched W/_R
+	io_select_latched <= io_select;		// latch io_select
+end
 
-assign data_6509 =                        data_6509_out;
-assign data_6502 =                        data_6502_out;
-
-// Normal bank register (called Execution bank in MOS documentation)
-register #(.WIDTH(4), .RESET(4'b1111))    reg_0000(phi2_6509, !_reset, we_bank & !address_6502[0], data_6502[3:0], data_0000);
-// Indirect bank register (used for LDA Indirect, Y and STA Indirect, Y)
-register #(.WIDTH(4), .RESET(4'b1111))    reg_0001(phi2_6509, !_reset, we_bank & address_6502[0], data_6502[3:0], data_0001);
-// is this cycle an opcode?
-register #(.WIDTH(1))                     reg_opcode(phi2_6509, !_reset, rdy, sync & data_6502[7] & !data_6502[6] & (data_6502[4:0] == 5'b10001), flag_opcode);
-register #(.WIDTH(1))                     reg_clock1(phi2_6509, !_reset, rdy, address_6502[0], data_cycle1);
-// compute the outcome of our combinatorial decision and store
-register #(.WIDTH(1))                     reg_clock2(phi2_6509, !_reset, rdy, flag_opcode & (data_cycle1 ^ address_6502[0]), data_cycle2);
-// shift
-register #(.WIDTH(1))                     reg_clock3(phi2_6509, !_reset, rdy, data_cycle2, data_cycle3);
-// shift
-register #(.WIDTH(1))                     reg_clock4(phi2_6509, !_reset, rdy, data_cycle3, data_cycle4);
-// shift
-register #(.WIDTH(1))                     reg_clock5(phi2_6509, !_reset, rdy, data_cycle4, data_cycle5);
-
-// bank selection
-assign sel_bank =                         (data_cycle5 & !sync) | data_cycle4;
-
-assign address_bank =                     ( sel_bank ? data_0001 : data_0000);
-
-// read bank registers in any bank.
-assign data_bank = (address_6502[0] ? data_0001 : data_0000);
+always @(negedge phi2)			// latch signals at phi2 falling edge
+begin
+	mmu_shift <= (rdy | write1);		// enables mmu shifting
+	mmu_opcode <= sync & data_6502[7] & !data_6502[6] & (data_6502[4:0] == 5'b10001);	// detect opcode
+	adr_bit0_old <= address_6502[0];	// remember cycle1 address bit #0 to detect next cycle
+end
 
 // phi2 delay for databus hold time ( about 30ns - each inverter needs 5ns )
-(*S = "TRUE"*) inverter inv1(phi2_6509, delay1);
+(*S = "TRUE"*) inverter inv1(phi2, delay1);
 (*S = "TRUE"*) inverter inv2(delay1, delay2);
 (*S = "TRUE"*) inverter inv3(delay2, delay3);
 (*S = "TRUE"*) inverter inv4(delay3, delay4);
 (*S = "TRUE"*) inverter inv5(delay4, delay5);
 (*S = "TRUE"*) inverter inv6(delay5, delay6);
+assign phi2_th = phi2 | delay6;		// phi2 high 30ns extended (typical TH time mos 6510 datasheet)
 
-always @(*)
-begin							 // & rdy is not nessasary at read
-   if(r_w & ce_bank & (phi2_6509 | delay6)) 			// read with 30ns hold time after phi2 falling edge
-      data_6502_out = {4'b0000, data_bank};			// read bank reg
-   else if(r_w & !ce_bank & (phi2_6509 | delay6)) 	// read with 30ns hold time after phi2 falling edge
-      data_6502_out = data_6509;							// read data
-   else
-      data_6502_out = 8'bz; 								// no read -> write
+assign oe_data_in =	!io_select_latched & phi2_th; 				// data in enable
+assign oe_io_data = io_select_latched & phi2_th; 				// io in enable
+assign oe_d = 		write1 & !io_select_latched & phi2_th;		// data out enable
+assign io_select =	address_6502[15:1] == 0;					// port $0000 or $0001 selected
+assign rd_0x00 	= !write1 & io_select & phi2_th & !address_6502[0];	// read ddr register 0x00
+assign rd_0x01 	= !write1 & io_select & phi2_th & address_6502[0];	// read data register 0x01
+assign wr_0x00 	= write1 & io_select & phi2 & !address_6502[0];		// write ddr register 0x00
+assign wr_0x01 	= write1 & io_select & phi2 & address_6502[0];		// write data register 0x01
+
+register #(.WIDTH(4), .RESET(4'b1111)) reg_0000(wr_0x00, !_reset, 1'b1, data_6502[3:0], data_0000);	// write execution bank
+register #(.WIDTH(4), .RESET(4'b1111)) reg_0001(wr_0x01, !_reset, 1'b1, data_6502[3:0], data_0001);	// write indirect bank
+
+assign next_cycle = (adr_bit0_old ^ address_6502[0]);		// detect next cyle, if address bit #0 has changed
+// 3 bit MMU shift register
+register #(.WIDTH(1)) reg_clock2(phi2, !_reset, mmu_shift, mmu_opcode & next_cycle, cycle2);	// shift 1
+register #(.WIDTH(1)) reg_clock3(phi2, !_reset, mmu_shift, cycle2, cycle3);						// shift 2
+register #(.WIDTH(1)) reg_clock4(phi2, !_reset, mmu_shift, cycle3, cycle4);						// shift 3
+
+always @(*)		// MMU RS-FlipFlop
+begin
+	if(cycle4)			// set flip flop in cycle 4
+		mmu0 <= 1;
+	if(sync | !_reset)	// reset flip flop at sync (opcode finished)
+		mmu0 <= 0;
 end
 
-always @(*)
+assign address_bank =	(mmu0 ? data_0001 : data_0000);	// select bank
+
+always @(*)		// databus read/write
 begin
-								// no & rdy here - ready is ignored at writes, wdc allows halt in write cycles
-   if(!r_w & (phi2_6509 | delay6)) 						// write with 30ns hold time after phi2 falling edge
-		data_6509_out = data_6502;							// write only at phi2=high
-   else
-      data_6509_out = 8'bz;								// no write
+	if(oe_d) begin	
+		data_6502_out = 8'bz;			// outputs to CPU hiz
+		data_out = data_6502;					// data out to board (only if not bank-register write)
+		end
+	else begin
+		data_out = 8'bz;				// outputs to board hiz
+		if(rd_0x00 & oe_io_data)				// read bank reg $0000
+			data_6502_out = data_0000;
+		else if(rd_0x01 & oe_io_data)			// read bank reg $0001
+			data_6502_out = data_0001;
+		else if(oe_data_in)						// read data
+			data_6502_out = data_6509;
+		else 
+		data_6502_out = 8'bz;			// outputs to CPU hiz
+		end
 end
 endmodule
