@@ -27,6 +27,9 @@ SOFTWARE.
 **Nu6509.v: Routines to support mapping the 6509-specific bank functionality onto the 6502.**
 
 **[Schematic](https://github.com/vossi1/nu6509/blob/master/schematics_v2.png)**
+
+**[Parts](https://github.com/vossi1/nu6509/blob/master/parts.txt)**
+
 ![NU6509 real_v2](https://github.com/vossi1/nu6509/blob/master/nu6509v2.jpg)
 
 **Fixed:**
