@@ -1,7 +1,7 @@
-Part      Value           Device
+Part      Value              Device
 
-C1        10u / 10V       C0805
-C2        22u / 6.3V      C0805
-C3, C4    100n            C0805
-IC3       XC9572XL-10VQ64 VQFP64
-VR1       LM1117-3.3      SOT223
+C1        10u / 10V          C0805
+C2        22u / 6.3V         C0805
+C3, C4    100n               C0805
+IC3       XC9572XL-10VQ64C   VQFP64
+VR1       LM1117-3.3         SOT223
