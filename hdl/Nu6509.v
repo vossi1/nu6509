@@ -2,7 +2,7 @@
    Nu6509 - Adapter to use 6502 in 6509-based system
    Original Design: Copyright (c) 2017-2019 Jim Brain dba RETRO Innovations
 	
-	Copyright (c) 2024 Vossi - v.2a
+	Copyright (c) 2024 Vossi - v.2a - USE v.2 code for P500 !!!
 	[fixed, modified, 6512 support, no '816 support]
 	www.mos6509.com
 	
