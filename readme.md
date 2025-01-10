@@ -30,8 +30,8 @@ SOFTWARE.
 
 **[Parts](https://github.com/vossi1/nu6509/blob/master/parts.txt)**
 
-CPLD-Firmware: The .JED file can be uploaded with [XC3SPROG](https://xc3sprog.sourceforge.net/)
-This requires a JTAG-SMT2 Xilinx programmer (Easy to find in China)
+**CPLD-Firmware:** The .JED file can be uploaded with a JTAG-SMT2 Xilinx programmer (China) and [XC3SPROG](https://xc3sprog.sourceforge.net/)
+
 
 **USE v.2 HDL-code in Folder HDL-P500 for the P500 - for the 6xx, 7xx v.2 and v.2a are ok**
 
