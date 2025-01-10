@@ -30,6 +30,9 @@ SOFTWARE.
 
 **[Parts](https://github.com/vossi1/nu6509/blob/master/parts.txt)**
 
+**CPLD-Firmware: The .JED file can be uploaded with [XC3SPROG](https://xc3sprog.sourceforge.net/)
+This requires a JTAG-SMT2 Xilinx programmer (Easy to find in China)**
+
 **USE v.2 HDL-code in Folder HDL-P500 for the P500 - for the 6xx, 7xx v.2 and v.2a are ok**
 
 ![NU6509 real_v2](https://github.com/vossi1/nu6509/blob/master/nu6509v2.jpg)
@@ -52,7 +55,7 @@ SOFTWARE.
 ![NU6509 pcb_front](https://github.com/vossi1/nu6509/blob/master/pcb_v2_1.png)
 ![NU6509 pcb_back](https://github.com/vossi1/nu6509/blob/master/pcb_v2_2.png)
 
-:x: **BEWARE: XC9572 from China are mostly FAKES - many of them work - but you don't know what you get! **
+:x: **BEWARE: XC9572 from China are mostly FAKES - many of them work - but you don't know what you get!**
 
 Notes:
 In low profile machines there is not enough space in the height to insert the adapter with socket. There is even less space in devices with a bottom-mounted power supply unit. The only solution is to first test the NU6509 in an open device and then solder it directly into the board.
